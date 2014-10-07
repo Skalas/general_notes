@@ -1,0 +1,96 @@
+#+TITLE:     Mastering Github
+#+AUTHOR:    Miguel Angel Escalante Serrato
+#+EMAIL:     escalas5@gmail.com
+#+LANGUAGE:  en
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+
+
+* Mastering Github
+** Level 1
+*** Section 1 
+Three level configurations:
++ local: in this repo 
++ global: in this user
++ system: in this machine
+To check the global configurations,
+#+BEGIN_SRC sh
+git config --global user.email,  git config --global --list 
+cat ~/.gitconfig
+#+END_SRC
+In case there is a change between OS's (windows) the way to configure and carry the return/line feed is:
++ Linux / Mac
+#+BEGIN_SRC sh
+git config --global core.autocrlf input 
+#+END_SRC
++ Windows
+#+BEGIN_SRC sh
+git config --global core.autocrlf true
+#+END_SRC
+Config to rebase instead of merging: 
+#+BEGIN_SRC sh
+git config --global pull.rebase true
+#+END_SRC
+ Reuse Recorded Resolution  records all fixes to merge conflicts, reuses them automatically if the same exact conflict occurs (Don't think this will work for me for now)
+#+BEGIN_SRC sh
+git config --global rerere.enabled true
+#+END_SRC
+Aliases recomended:
+#+BEGIN_SRC sh
+git status -s
+git config --global alias.s "status -s"
+git log 
+git config --global alias.lg "log --oneline --decorate --all --graph" 
+#+END_SRC
+*** Section 2
+Cloning and forking. Same old. 
+*** Section 3 
+Pull requests. Not that hard.
+*** Section 4 Updating your fork.
+#+BEGIN_SRC sh
+git remote add opintel(upstream) <path_to_repo>
+git fetch opintel(upstream)
+git merge(rebase?) upstream/master master
+git push origin master
+#+END_SRC
+
+** Level 2
+*** Section 1
+Use feature branches because forks are difficult to work with.
+#+BEGIN_SRC sh
+git fetch
+git branch -a
+git checkout f2<name_of_the_branc>h
+#+END_SRC
+**
+*** Section 2 
+Collaborating on pull requests
+You can merge on the command line, contrary to the fork based. 
+Anybody on the team can make comments on the pull request, up to line level. 
+#+BEGIN_SRC sh
+git fetch 
+git branch -a 
+git checkout <branch_name>
+#+END_SRC
+This helps when we want to make the changes directly on the coworker's file. 
+*** Section 3
+Merging pull requests: 
++ Interactively rebase
+  + only when it leaves enough context
++ Rebase to create a linear history
+  + If team is comfortable with it, (single feature at a time)
++ Fast forward or recursive merges
+  + More clarity.
+
+#+BEGIN_SRC sh
+git lg 
+git checkout <branch>
+git rebase -i HEAD~5
+# r(reword)
+# f(fixup)
+# f(fixup)
+# f(fixup)
+# f(fixup)
+# (change the commit and then you are done)
+# (single new commit)
+#+END_SRC
